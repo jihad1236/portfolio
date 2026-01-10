@@ -387,25 +387,88 @@
 
         <section class="py-20 border-y border-white/10">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="reveal glass-card p-6 rounded-2xl glow text-center">
-                    <h3 class="text-4xl font-bold text-gradient mb-2">3+</h3>
-                    <p class="text-gray-500 text-sm font-medium tracking-widest uppercase">Years Experience</p>
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);"
+                    class="p-6 rounded-2xl text-center relative overflow-hidden">
+                    <h3 style="background: linear-gradient(to bottom, #ffffff 30%, #444444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+                        class="text-4xl font-black mb-2 italic">
+                        <span id="count-years">0</span>+
+                    </h3>
+                    <p style="letter-spacing: 0.2em; color: rgba(255,255,255,0.6);"
+                        class="text-[10px] font-bold uppercase">Years Experience</p>
                 </div>
-                <div class="reveal glass-card p-6 rounded-2xl glow text-center">
-                    <h3 class="text-4xl font-bold text-gradient mb-2">25+</h3>
-                    <p class="text-gray-500 text-sm font-medium tracking-widest uppercase">Apps Delivered</p>
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);"
+                    class="p-6 rounded-2xl text-center relative overflow-hidden">
+                    <h3 style="background: linear-gradient(to bottom, #ffffff 30%, #444444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+                        class="text-4xl font-black mb-2 italic">
+                        <span id="count-apps">0</span>+
+                    </h3>
+                    <p style="letter-spacing: 0.2em; color: rgba(255,255,255,0.6);"
+                        class="text-[10px] font-bold uppercase">Apps Delivered</p>
                 </div>
-                <div class="reveal glass-card p-6 rounded-2xl glow text-center">
-                    <h3 class="text-4xl font-bold text-gradient mb-2">100%</h3>
-                    <p class="text-gray-500 text-sm font-medium tracking-widest uppercase">Client Satisfaction</p>
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);"
+                    class="p-6 rounded-2xl text-center relative overflow-hidden">
+                    <h3 style="background: linear-gradient(to bottom, #ffffff 30%, #444444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+                        class="text-4xl font-black mb-2 italic">
+                        <span id="count-satisfaction">0</span>%
+                    </h3>
+                    <p style="letter-spacing: 0.2em; color: rgba(255,255,255,0.6);"
+                        class="text-[10px] font-bold uppercase">Client Satisfaction</p>
+                    <div class="mt-4 w-full bg-white/10 h-1 rounded-full overflow-hidden">
+                        <div id="progress-bar-satisfaction"
+                            style="width: 0%; background: linear-gradient(90deg, #444444, #ffffff);"
+                            class="h-full rounded-full transition-all duration-[2500ms]"></div>
+                    </div>
                 </div>
-                <div class="reveal glass-card p-6 rounded-2xl glow text-center">
-                    <h3 class="text-4xl font-bold text-gradient mb-2">Agency</h3>
-                    <p class="text-gray-500 text-sm font-medium tracking-widest uppercase">Background</p>
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);"
+                    class="p-6 rounded-2xl text-center relative overflow-hidden">
+                    <h3 style="background: linear-gradient(to bottom, #ffffff 30%, #444444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+                        class="text-4xl font-black mb-2 italic">
+                        <span id="count-agency">0</span>+
+                    </h3>
+                    <p style="letter-spacing: 0.2em; color: rgba(255,255,255,0.6);"
+                        class="text-[10px] font-bold uppercase">Agency Tasks</p>
                 </div>
+
             </div>
         </section>
 
+        <script>
+                (function () {
+                    const stats = [
+                        { id: 'count-years', target: 2 },
+                        { id: 'count-apps', target: 25 },
+                        { id: 'count-satisfaction', target: 100 },
+                        { id: 'count-agency', target: 200 } // Example number for agency tasks
+                    ];
+
+                    const duration = 2500;
+
+                    function animateStats(timestamp) {
+                        if (!window.startTime) window.startTime = timestamp;
+                        const progress = Math.min((timestamp - window.startTime) / duration, 1);
+
+                        stats.forEach(stat => {
+                            const el = document.getElementById(stat.id);
+                            if (el) el.innerText = Math.floor(progress * stat.target);
+                        });
+
+                        const bar = document.getElementById('progress-bar-satisfaction');
+                        if (bar) bar.style.width = (progress * 100) + '%';
+
+                        if (progress < 1) {
+                            window.requestAnimationFrame(animateStats);
+                        }
+                    }
+
+                    window.addEventListener('load', () => {
+                        window.requestAnimationFrame(animateStats);
+                    });
+                })();
+        </script>
         <section id="projects" class="py-24">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 reveal">
                 <div>
@@ -487,67 +550,97 @@
                         and CI/CD pipelines to ensure the app stays stable as it grows.
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 mt-8">
-    
-    <div class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up delay-100 glow overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center border border-yellow-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-yellow-500/20">
-            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" class="size-9 object-contain" alt="Database">
-        </div>
-        <div class="relative z-10">
-            <h4 class="font-bold mb-1 text-lg group-hover:text-yellow-400 transition-colors">Backend & Database</h4>
-            <p class="text-sm text-gray-400 leading-relaxed">Cloud Firestore, SQLite, Hive, Supabase, NoSQL Optimization</p>
-            <div class="mt-3 w-16 h-1 bg-yellow-500/20 rounded-full overflow-hidden">
-                <div class="h-full bg-yellow-500 w-full animate-slide-in-left"></div>
-            </div>
-        </div>
-    </div>
 
-    <div class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up delay-200 glow overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center border border-cyan-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-cyan-500/20">
-            <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" class="size-9 object-contain" alt="State Management">
-        </div>
-        <div class="relative z-10">
-            <h4 class="font-bold mb-1 text-lg group-hover:text-cyan-400 transition-colors">State Management</h4>
-            <p class="text-sm text-gray-400 leading-relaxed">Expertise in BLoC, Riverpod, Provider, and GetX architectural patterns</p>
-            <div class="mt-3 w-16 h-1 bg-cyan-500/20 rounded-full overflow-hidden">
-                <div class="h-full bg-cyan-500 w-full animate-slide-in-left"></div>
-            </div>
-        </div>
-    </div>
+                        <div
+                            class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up delay-100 glow overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div
+                                class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 flex items-center justify-center border border-yellow-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-yellow-500/20">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png"
+                                    class="size-9 object-contain" alt="Database">
+                            </div>
+                            <div class="relative z-10">
+                                <h4 class="font-bold mb-1 text-lg group-hover:text-yellow-400 transition-colors">Backend
+                                    & Database</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">Cloud Firestore, SQLite, Hive,
+                                    Supabase, NoSQL Optimization</p>
+                                <div class="mt-3 w-16 h-1 bg-yellow-500/20 rounded-full overflow-hidden">
+                                    <div class="h-full bg-yellow-500 w-full animate-slide-in-left"></div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up glow overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-    
-    <div class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 flex items-center justify-center border border-indigo-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-indigo-500/20">
-        <img src="https://cdn-icons-png.flaticon.com/512/831/831276.png" class="size-9 object-contain brightness-125" alt="Publishing">
-    </div>
-    
-    <div class="relative z-10">
-        <h4 class="font-bold mb-1 text-lg group-hover:text-indigo-400 transition-colors">Publishing</h4>
-        <p class="text-sm text-gray-400 leading-relaxed">App Store Connect, Play Store Console, OTA Updates (Shorebird)</p>
-        
-        <div class="mt-3 w-16 h-1 bg-indigo-500/20 rounded-full overflow-hidden">
-            <div class="h-full bg-indigo-500 w-full animate-slide-in-left shadow-[0_0_10px_#6366f1]"></div>
-        </div>
-    </div>
-</div>
+                        <div
+                            class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up delay-200 glow overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div
+                                class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center border border-cyan-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-cyan-500/20">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png"
+                                    class="size-9 object-contain" alt="State Management">
+                            </div>
+                            <div class="relative z-10">
+                                <h4 class="font-bold mb-1 text-lg group-hover:text-cyan-400 transition-colors">State
+                                    Management</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">Expertise in BLoC, Riverpod, Provider,
+                                    and GetX architectural patterns</p>
+                                <div class="mt-3 w-16 h-1 bg-cyan-500/20 rounded-full overflow-hidden">
+                                    <div class="h-full bg-cyan-500 w-full animate-slide-in-left"></div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up delay-400 glow overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center border border-emerald-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-emerald-500/20">
-            <img src="https://cdn-icons-png.flaticon.com/512/1006/1006363.png" class="size-9 object-contain" alt="Tools">
-        </div>
-        <div class="relative z-10">
-            <h4 class="font-bold mb-1 text-lg group-hover:text-emerald-400 transition-colors">Development Tools</h4>
-            <p class="text-sm text-gray-400 leading-relaxed">VS Code Mastery, DevTools, Postman, Figma-to-Code workflow</p>
-            <div class="mt-3 w-16 h-1 bg-emerald-500/20 rounded-full overflow-hidden">
-                <div class="h-full bg-emerald-500 w-full animate-slide-in-left"></div>
-            </div>
-        </div>
-    </div>
+                        <div
+                            class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up glow overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
 
-</div>
+                            <div
+                                class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 flex items-center justify-center border border-indigo-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-indigo-500/20">
+                                <img src="https://cdn-icons-png.flaticon.com/512/831/831276.png"
+                                    class="size-9 object-contain brightness-125" alt="Publishing">
+                            </div>
+
+                            <div class="relative z-10">
+                                <h4 class="font-bold mb-1 text-lg group-hover:text-indigo-400 transition-colors">
+                                    Publishing</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">App Store Connect, Play Store Console,
+                                    OTA Updates (Shorebird)</p>
+
+                                <div class="mt-3 w-16 h-1 bg-indigo-500/20 rounded-full overflow-hidden">
+                                    <div
+                                        class="h-full bg-indigo-500 w-full animate-slide-in-left shadow-[0_0_10px_#6366f1]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group relative flex gap-4 glass-card p-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-fade-in-up delay-400 glow overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div
+                                class="size-16 shrink-0 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 flex items-center justify-center border border-emerald-500/30 group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-emerald-500/20">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1006/1006363.png"
+                                    class="size-9 object-contain" alt="Tools">
+                            </div>
+                            <div class="relative z-10">
+                                <h4 class="font-bold mb-1 text-lg group-hover:text-emerald-400 transition-colors">
+                                    Development Tools</h4>
+                                <p class="text-sm text-gray-400 leading-relaxed">VS Code Mastery, DevTools, Postman,
+                                    Figma-to-Code workflow</p>
+                                <div class="mt-3 w-16 h-1 bg-emerald-500/20 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 w-full animate-slide-in-left"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
         </section>
 
         <section id="contact" class="py-24 reveal">
